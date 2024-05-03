@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#kill  process
+
+PID=$(pgrep -f "7-highlander")
+
+if [ -z "$PID" ]
+then
+	echo "nothing to kill"
+else
+	pkill -f "7-highlander"
+fi
+

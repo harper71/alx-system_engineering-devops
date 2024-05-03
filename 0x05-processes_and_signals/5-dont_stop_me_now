@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#kill  process
+
+PID=$(pgrep -f "4-to_infinity_and_beyond")
+
+if [ -z "$PID" ]
+then
+	echo "nothing to kill"
+else
+	kill "$PID"
+fi
+

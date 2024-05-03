@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# check for bash in all process 
+# shellcheck disable=SC2059
+
+ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,command | grep "bash"
+
