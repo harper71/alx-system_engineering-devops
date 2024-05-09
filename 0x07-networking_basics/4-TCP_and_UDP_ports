@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Get listening ports and corresponding PID and process name
+
+netstat -tulnp
+netstat -lx --unix -p
+
