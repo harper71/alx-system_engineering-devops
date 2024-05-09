@@ -3,9 +3,8 @@
 
 # Update hosts file
 echo "127.0.0.2 localhost" >> /etc/hosts
-
-# Add a custom entry for facebook.com
 echo "8.8.8.8 facebook.com" >> /etc/hosts
 
 # Flush DNS cache (optional, but recommended)
 systemctl restart systemd-resolved
+

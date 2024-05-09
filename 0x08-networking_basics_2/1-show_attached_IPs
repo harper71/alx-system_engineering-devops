@@ -4,3 +4,4 @@
 active_ips=$(ip addr show | grep "inet " | awk '{print $2}' | cut -d'/' -f1)
 
 echo "$active_ips"
+
