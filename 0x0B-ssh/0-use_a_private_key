@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 # creates a connection to the server
 
-SERVER="54.237.92.234"
-KEY="~/.ssh/school"
-USER="ubuntu"
-ssh -i $KEY $USER@$SERVER
+ssh -i ~/.ssh/school ubuntu@54.237.92.234

@@ -1,0 +1,6 @@
+# SSH client configuration for connecting to the server without typing a password
+Host 471117-web-01
+    HostName 54.237.92.234
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
