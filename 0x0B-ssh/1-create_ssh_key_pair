@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+FILENAME="school"
+PARAPHRASE="betty"
+
+ssh-keygen -t $FILENAME -b 4096 -f ~/.ssh/school -N $PARAPHRASE
