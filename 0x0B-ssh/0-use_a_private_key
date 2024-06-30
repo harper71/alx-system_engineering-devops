@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# creates a connection to the server
+
 SERVER="54.237.92.234"
 KEY="~/.ssh/school"
 USER="ubuntu"
