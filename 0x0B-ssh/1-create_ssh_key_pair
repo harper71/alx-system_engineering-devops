@@ -2,4 +2,4 @@
 # creates an rsa_key
 PARAPHRASE="betty"
 
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/school -N $PARAPHRASE
+ssh-keygen -t rsa -b 4096 -f school -N $PARAPHRASE
