@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Configure Nginx server so that /redirect_me is redirecting to another page
+
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
+sudo touch /etc/nginx/sites-available/redirectme.conf
+
+
+sudo sed -i '1iserver {' /etc/nginx/sites-available/redirectme.conf
+sudo sed -i '2ilisten 80;' /etc/nginx/sites-available/redirectme.conf
+sudo sed -i '3iserver_name _;' /etc/nginx/sites-available/redirectme.conf
+sudo sed -i '4ilocation / {' /etc/nginx/sites-available/redirectme.conf
+sudo sed -i '5ireturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4$request_uri;' /etc/nginx/sites-available/redirectme.conf
+sudo sed -i '6i}' /etc/nginx/sites-available/redirectme.conf
+sudo sed -i '7i}' /etc/nginx/sites-available/redirectme.conf
+
+sudo ln -s /etc/nginx/sites-available/redirectme.conf /etc/nginx/sites-enabled/
+sudo service nginx restart
+
