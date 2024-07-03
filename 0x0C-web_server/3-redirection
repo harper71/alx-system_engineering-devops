@@ -5,9 +5,10 @@
 sudo apt-get update
 sudo apt-get install -y nginx
 
-sudo touch /etc/nginx/sites-available/redirectme.conf
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.back
 
+text_to_replace="server_name _;\n   location /redirect_me {\n       return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n   }"
 
+sed -i "s|server_name _;|$text_to_replace|" /etc/nginx/sites-available/default
 
-sudo service nginx restart
-
+sudo nginx -s reload

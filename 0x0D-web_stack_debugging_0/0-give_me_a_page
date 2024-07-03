@@ -2,4 +2,3 @@
 # start apache 2
 
 sudo service apache2 start
-sudo echo "Hello Holberton" | /var/www/html/index.html
