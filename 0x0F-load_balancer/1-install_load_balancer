@@ -19,14 +19,14 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 $WEB_SERVER_1:80 check
-    server web-02 $WEB_SERVER_2:80 check
+    server $WEB_SERVER_1 52.91.121.37:80 check
+    server $WEB_SERVER_2 54.90.38.48:80 check
 EOF
 )
 
 FILE_PATH="/etc/haproxy/haproxy.cfg"
 
-if ! grep -qF "frontend http_front" "$FILE_PATH";then
+if ! grep -qF "$AddB_AddF" "$FILE_PATH";then
     echo "$AddB_AddF" | sudo tee -a "$FILE_PATH"
     echo "Replacement done."
 else
