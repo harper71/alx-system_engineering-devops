@@ -5,66 +5,41 @@
 sudo apt-get update
 sudo apt-get install -y haproxy
 
-# Configure HAProxy
-cat <<EOL | sudo tee /etc/haproxy/haproxy.cfg
-global
-    log /dev/log local0
-    log /dev/log local1 notice
-    chroot /var/lib/haproxy
-    stats socket /run/haproxy/admin.sock mode 660 level admin
-    stats timeout 30s
-    user haproxy
-    group haproxy
-    daemon
+# Define variables
+STUDENT_ID="471117"
+WEB_SERVER_1="${STUDENT_ID}-web-01"
+WEB_SERVER_2="${STUDENT_ID}-web-02"
 
-defaults
-    log     global
-    mode    http
-    option  httplog
-    option  dontlognull
-    timeout connect 5000
-    timeout client  50000
-    timeout server  50000
-    errorfile 400 /etc/haproxy/errors/400.http
-    errorfile 403 /etc/haproxy/errors/403.http
-    errorfile 408 /etc/haproxy/errors/408.http
-    errorfile 500 /etc/haproxy/errors/500.http
-    errorfile 502 /etc/haproxy/errors/502.http
-    errorfile 503 /etc/haproxy/errors/503.http
-    errorfile 504 /etc/haproxy/errors/504.http
-
+#configure haproxy
+AddB_AddF=$(cat << 'EOF'
+errorfile 504 /etc/haproxy/errors/504.http
 frontend http_front
     bind *:80
     default_backend http_back
 
 backend http_back
     balance roundrobin
-    server web01 471117-web-01:80 check
-    server web02 471117-web-02:80 check
+    server web-01 $WEB_SERVER_1:80 check
+    server web-02 $WEB_SERVER_2:80 check
+EOF
+)
 
-listen stats
-    bind *:8080
-    stats enable
-    stats uri /stats
-    stats refresh 10s
-    stats auth admin:password
-EOL
+FILE_PATH="/etc/haproxy/haproxy.cfg"
 
-# Enable and start HAProxy
+if ! grep -qF "frontend http_front" "$FILE_PATH";then
+    echo "$AddB_AddF" | sudo tee -a "$FILE_PATH"
+    echo "Replacement done."
+else
+    echo "The string is already present in the file. No changes made."
+fi
+
+# Enable HAproxy service
 sudo systemctl enable haproxy
+
+# Start HAproxy service
 sudo systemctl start haproxy
 
-# Ensure correct hostnames for web-01 and web-02
-echo "471117-web-01" | sudo tee /etc/hostname
-sudo hostname -F /etc/hostname
+# Verify HAproxy status
+sudo systemctl status haproxy
 
-echo "471117-web-02" | sudo tee /etc/hostname
-sudo hostname -F /etc/hostname
-
-# Add entries to /etc/hosts for web-01 and web-02
-cat <<EOL | sudo tee -a /etc/hosts
-52.91.121.37 471117-web-01
-54.90.38.48 471117-web-02
-EOL
-
-echo "HAProxy configuration completed. HAProxy is running and distributing traffic to web-01 and web-02 using round-robin algorithm."
+echo "HAproxy has been installed and configured to distribute traffic to ${WEB_SERVER_1} and ${WEB_SERVER_2} using the roundrobin algorithm."
