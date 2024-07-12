@@ -1,18 +1,44 @@
 #!/usr/bin/env bash
 # write a Bash script that will display information about the subdomains
 
-dns_config () {
-    script=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | tr '\n' ' ')
-    echo "$2 $script" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
+query_subdomain() {
+  local domain=$1
+  local subdomain=$2
+  local full_domain="${subdomain}.${domain}"
+  
+  # Query DNS for the subdomain
+
+  asign_record=$(dig +short $full_domain)
+
+  local record=$asign_record
+
+  if [ -z "$record" ]; then
+    echo "The subdomain ${full_domain} does not exist."
+    return
+  fi
+  
+  local record_type="A"
+  
+  # Output the result
+  echo "The subdomain ${full_domain} is a ${record_type} record and points to ${record}"
 }
 
-if [ "$#" == 1 ]
-then
-  dns_config "$1" "www"
-  dns_config "$1" "lb-01"
-  dns_config "$1" "web-01"
-  dns_config "$1" "web-02"
-elif [ "$#" == 2 ]
-then
-  dns_config "$1" "$2"
+# Check if at least one argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <domain> [subdomain]"
+  exit 1
+fi
+
+domain=$1
+subdomain=$2
+
+# If a specific subdomain is provided, query only that
+if [ ! -z "$subdomain" ]; then
+  query_subdomain $domain $subdomain
+else
+  # Otherwise, query the default subdomains in the specified order
+  query_subdomain $domain "www"
+  query_subdomain $domain "lb-01"
+  query_subdomain $domain "web-01"
+  query_subdomain $domain "web-02"
 fi
