@@ -1,0 +1,21 @@
+"what happens when you type https://www.google.com in your browser and press Enter"
+
+1. HTTPS/SSL
+When accessing the website https://www.google.com, the 'https' tells the browser to use the HTTPS protocol. HTTPS stands for (Hypertext Transfer Protocol Secure). This is an extension of HTTP and it is used for secure communication over a computer network. HTTPS encrypts data exchanged between your browser and a website, ensuring privacy and data integrity.
+
+2. DNS request AND TCP/IP
+DNS request is sent to the DNS server which fetches the IP address allocated to the website name google.com. E.g., let's say the IP address is 8.8.8.8. This IP address is used for addressing and sending data so it can travel across networks and arrive at the correct destination.
+
+3. Load-balancer
+After this request is made, it is routed to the correct destination (servers where the website is stored). This request is first taken by the load balancer which is responsible for allocating traffic to each server to ensure no one server is completely overwhelmed by several requests. It helps improve performance and reliability.
+
+3. Web server AND Application server
+From the load balancer, it is sent to the appropriate server which holds the website's data. The server can be a web server which holds static web contents such as HTML, CSS, and JavaScript files. While the application server helps in processing dynamic requests, executing applications code, generating dynamic content, and accessing databases.
+
+4. Database
+databases are used to store data such as user information, login information like passwords and usernames, etc. 
+
+5. Firewall
+Also, a firewall is placed that monitors and controls incoming and outgoing network traffic based on the security rules. Firewalls help prevent unauthorized access and protect against various cyber threats.
+
+After all this, a response is sent to the browser with the appropriate web content you see as google.com
