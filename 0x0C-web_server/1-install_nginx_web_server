@@ -4,6 +4,20 @@
 sudo apt update
 sudo apt install -y nginx
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
+TXT="Hello World!"
+
+TXT_REPLACE1="listen 80;"
+TXT_REPLACE2="listen \[::\]:80;"
+
+sudo sed -i "s|listen \[::\]:80 default_server;|$TXT_REPLACE2|" /etc/nginx/sites-available/default
+sudo sed -i "s|listen 80 default_server;|$TXT_REPLACE1|" /etc/nginx/sites-available/default
+
+if ! grep -qF "$TXT" "/var/www/html/index.html";
+then
+	echo "$TXT" | sudo tee /var/www/html/index.html
+	echo "Replacement Done"
+else
+	echo "$TXT already exist in the file"
+fi
 
 sudo nginx -s reload
