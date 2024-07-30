@@ -62,8 +62,8 @@ def main():
     completed_tasks = [completed for completed in total_tasks
                        if completed['completed']]
 
-    print("Employee {} is done with tasks ({}/{}).".
-          format(employee_name, len(total_tasks), len(completed_tasks)))
+    print("Employee {} is done with tasks ({}/{}):".
+          format(employee_name, len(completed_tasks), len(total_tasks)))
 
     for task in completed_tasks:
         print(f"\t {task['title']}")
