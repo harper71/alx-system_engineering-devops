@@ -17,6 +17,10 @@ def number_of_subscribers(subreddit):
 
             subscriber = redditGetUsrURL.json()
             subNums = subscriber['data']['subscribers']
+
+            if not subNums:
+                return 0
+
             return subNums
         elif redditGetUsrURL.status_code == 302:
             return 0
