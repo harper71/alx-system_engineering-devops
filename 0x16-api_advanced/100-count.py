@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """gets hot topic with specific keywords"""
 import requests
 import re
