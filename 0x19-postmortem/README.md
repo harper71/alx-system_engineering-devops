@@ -4,6 +4,7 @@ Issue Summary
 Duration:
 Outage occurred on 2024-08-15 from 10:15 AM to 12:30 PM UTC (2 hours and 15 minutes).
 
+
 Impact:
 The web application, which handles online transactions for a retail client, experienced severe slowdowns, rendering the checkout process unusable for 80% of users. During the outage, users were unable to complete purchases, leading to a significant loss in revenue and customer trust.
 
